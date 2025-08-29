@@ -2,6 +2,8 @@
 
 A comprehensive collection of hands-on labs for learning AWS Strands Agents framework. This repository contains practical examples demonstrating agent creation, tool integration, and advanced features like Model Context Protocol (MCP) implementations.
 
+For understand more, please refer to [Strands Agents SDK](https://strandsagents.com/latest/)
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -14,7 +16,7 @@ A comprehensive collection of hands-on labs for learning AWS Strands Agents fram
 
 1. Clone this repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/syedair/strands-agents-labs.git
 cd strands-agents-labs
 ```
 
@@ -23,11 +25,19 @@ cd strands-agents-labs
 uv sync
 ```
 
-3. Ensure Ollama is running with required models:
+3. If you would like to run model locally, ensure Ollama is running with required models:
 ```bash
 ollama pull llama3.2:latest
 ollama pull gpt-oss:20b
 ```
+
+Note:
+For other model providers, you can find information here:
+[Amazon Bedrock](https://strandsagents.com/latest/documentation/docs/user-guide/concepts/model-providers/amazon-bedrock/)
+[OpenAI](https://strandsagents.com/latest/documentation/docs/user-guide/concepts/model-providers/openai/)
+[Anthropic](https://strandsagents.com/latest/documentation/docs/user-guide/concepts/model-providers/anthropic/)
+
+
 
 ## 📚 Lab Overview
 
@@ -43,7 +53,7 @@ Learn the fundamentals of creating your first Strands agent with basic file oper
 
 **Run:**
 ```bash
-python labs/lab1.py
+uv run labs/lab1.py
 ```
 
 ### Lab 2: HTTP Tools Integration
@@ -58,7 +68,7 @@ Explore HTTP request capabilities for external API integration.
 
 **Run:**
 ```bash
-python labs/lab2.py
+uv run labs/lab2.py
 ```
 
 ### Lab 3: Logging and Debugging
@@ -73,7 +83,7 @@ Master logging configuration for better debugging and monitoring.
 
 **Run:**
 ```bash
-python labs/lab3.py
+uv run labs/lab3.py
 ```
 
 ### Lab 4: Custom Tools Development
@@ -93,8 +103,8 @@ Create custom tools and build specialized agents.
 
 **Run:**
 ```bash
-python labs/lab4a.py
-python labs/lab4b.py
+uv run labs/lab4a.py
+uv run labs/lab4b.py
 ```
 
 ### Lab 5: Model Context Protocol (MCP) - STDIO
@@ -107,15 +117,9 @@ Integrate MCP servers using STDIO transport for enhanced capabilities.
 - STDIO client configuration
 - Cross-platform compatibility
 
-**Prerequisites:**
-```bash
-# Install uvx if not already available
-pip install uv
-```
-
 **Run:**
 ```bash
-python labs/lab5.py
+uv run labs/lab5.py
 ```
 
 ### Lab 6: MCP Streamable HTTP
@@ -136,7 +140,7 @@ python mcp-streamable-http/python-example/server/weather.py
 
 **Run:**
 ```bash
-python labs/lab6.py
+uv run labs/lab6.py
 ```
 
 ### Lab 7: Async Streaming with MCP
@@ -153,31 +157,12 @@ Advanced asynchronous processing with streaming responses.
 **Prerequisites:**
 Ensure the MCP server is running:
 ```bash
-python mcp-streamable-http/python-example/server/weather.py
+uv run mcp-streamable-http/python-example/server/weather.py
 ```
 
 **Run:**
 ```bash
-python labs/lab7.py
-```
-
-## 🔧 MCP Streamable HTTP Example
-
-The `mcp-streamable-http/` directory contains a complete implementation of MCP using HTTP streamable transport, featuring both Python and TypeScript examples.
-
-### Python Server Setup
-```bash
-cd mcp-streamable-http/python-example/server
-pip install .
-python weather.py --port 8123
-```
-
-### Python Client Setup
-```bash
-cd mcp-streamable-http/python-example/client
-pip install .
-# Add your Anthropic API key to .env file
-python client.py
+uv run labs/lab7.py
 ```
 
 ## 🛡️ Security Considerations
