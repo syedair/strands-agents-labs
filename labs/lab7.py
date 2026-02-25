@@ -2,7 +2,7 @@
 # Streamable HTTP Clients
 # With Asynchronous Iterators using stream_async
 
-from strands import Agent, tool
+from strands import Agent
 from strands.models.ollama import OllamaModel
 
 # New Imports
@@ -17,7 +17,7 @@ import asyncio
 
 # Ollama
 ollama_model = OllamaModel(
-  model_id="gpt-oss:20b",
+  model_id="llama3.2:latest",
   host="http://localhost:11434"
 
 )
@@ -34,33 +34,38 @@ streamable_http_mcp_client = MCPClient(
 
 async def process_streaming_response():
     # Create an agent with MCP tools inside the context manager
-    with streamable_http_mcp_client:
-        # Get the tools from the MCP server
-        tools = streamable_http_mcp_client.list_tools_sync()
+    try:
+        with streamable_http_mcp_client:
+            # Get the tools from the MCP server
+            tools = streamable_http_mcp_client.list_tools_sync()
 
-        # Create an agent with these tools
-        agent = Agent(
-            system_prompt="You are weather expert, provide weather details by using the available tools",
-            model=ollama_model, 
-            tools=tools
-        )
-        
-        agent_stream = agent.stream_async("What is the weather in New York?")
-        async for event in agent_stream:
-            # Track event loop lifecycle
-            if event.get("init_event_loop", False):
-                print("🔄 Event loop initialized")
-            elif event.get("start_event_loop", False):
-                print("▶️ Event loop cycle starting")
-            elif event.get("start", False):
-                print("📝 New cycle started")
-            elif "message" in event:
-                print(f"📬 New message created: {event['message']['role']}")
-            elif event.get("complete", False):
-                print("✅ Cycle completed")
-            elif event.get("force_stop", False):
-                print(
-                    f"🛑 Event loop force-stopped: {event.get('force_stop_reason', 'unknown reason')}"
-                )
+            # Create an agent with these tools
+            agent = Agent(
+                system_prompt="You are weather expert, provide weather details by using the available tools",
+                model=ollama_model,
+                tools=tools
+            )
+
+            agent_stream = agent.stream_async("What is the weather in New York?")
+            async for event in agent_stream:
+                # Track event loop lifecycle
+                if event.get("init_event_loop", False):
+                    print("🔄 Event loop initialized")
+                elif event.get("start_event_loop", False):
+                    print("▶️ Event loop cycle starting")
+                elif event.get("start", False):
+                    print("📝 New cycle started")
+                elif "message" in event:
+                    print(f"📬 New message created: {event['message']['role']}")
+                elif event.get("complete", False):
+                    print("✅ Cycle completed")
+                elif event.get("force_stop", False):
+                    print(
+                        f"🛑 Event loop force-stopped: {event.get('force_stop_reason', 'unknown reason')}"
+                    )
+    except Exception as e:
+        print("Error: Could not connect to MCP server at http://localhost:8123/mcp")
+        print("Make sure the server is running: uv run mcp-streamable-http/python-example/server/weather.py")
+        print(f"Details: {e}")
 
 asyncio.run(process_streaming_response())

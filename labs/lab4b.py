@@ -33,7 +33,7 @@ def websearch(keywords: str, region: str = "us-en", max_results: int | None = No
 
 
 ollama_model = OllamaModel(
-  model_id="gpt-oss:20b",
+  model_id="llama3.2:latest",
   host="http://localhost:11434"
 
 )

@@ -2,11 +2,11 @@
 
 from strands import Agent
 from strands.models.ollama import OllamaModel
-from strands_tools import file_read, file_write, http_request
+from strands_tools import http_request
 
 # Configure the Ollama model
 ollama_model = OllamaModel(
-    model_id="gpt-oss:20b", # Make sure this is the model you downloaded from Ollama
+    model_id="llama3.2:latest", # Make sure this is the model you downloaded from Ollama
     host="http://localhost:11434",
     params={
         "max_tokens": 2048,  # Adjust based on your model's capabilities

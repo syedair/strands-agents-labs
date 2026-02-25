@@ -1,7 +1,7 @@
 # Using MCPs (Model Context Protocols)
 # STDIO Clients First
 
-from strands import Agent, tool
+from strands import Agent
 from strands.models.ollama import OllamaModel
 
 # New Imports
@@ -10,7 +10,7 @@ from mcp import stdio_client, StdioServerParameters
 
 # Ollama
 ollama_model = OllamaModel(
-  model_id="gpt-oss:20b",
+  model_id="llama3.2:latest",
   host="http://localhost:11434"
 
 )

@@ -5,7 +5,7 @@ from strands.models.ollama import OllamaModel
 
 # Ollama
 ollama_model = OllamaModel(
-  model_id="gpt-oss:20b",
+  model_id="llama3.2:latest",
   host="http://localhost:11434"
 
 )
